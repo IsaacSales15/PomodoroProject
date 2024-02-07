@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,16 +11,19 @@
     <div id="wrapper">
         <div id="timer_container">
             <div id="options_container">
-                <div id="long_pomodoro"></div>
-                <div id="short_pomodoro"></div>
+                <button id="long_pomodoro" class="option"><span class="options_text">Pomodoro</span></button>
+                <button id="medium_pomodoro" class="option"><span class="options_text">Shor break</span></button>
+                <button id="short_pomodoro" class="option"><span class="options_text">Long break</span></button>
             </div>
-            <div id="timer_upper_container">
-                <div id="timer">
-                    <span id="minutes">25:00</span>
+            <div id="main_timer">
+                <div id="timer_upper_container">
+                    <div id="timer">
+                        <span id="minutes">25:00</span>
+                    </div>
                 </div>
-            </div>
-            <div id="button_container">
-                <button id="start_button">Start</button>
+                <div id="button_container">
+                    <button id="start_button">Start</button>
+                </div>
             </div>
         </div>
     </div>
