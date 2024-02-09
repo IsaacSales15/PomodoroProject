@@ -1,6 +1,6 @@
-// Variáveis
-let start = 25;
+let start = .2;
 let timer = start * 60;
+let timerShort = start * 60
 
 // Elementos visuais
 const countdownEl = document.getElementById('minutes');
@@ -17,7 +17,7 @@ startButton.addEventListener('click', () => {
     // If para verificar se o timerOn está true
     if (!timerOn) {
         timerOn = true;
-        startCountdown();
+        //setTimeout(startCountdown(), 1000);
         countdownInterval = setInterval(startCountdown, 1000);
         startButton.innerHTML = 'Pause';
     } else {
@@ -35,14 +35,14 @@ pomodoro.addEventListener('click', () => {
 });
 
 longBreak.addEventListener('click', () => {
-    timer = 15 * 60; 
     start = 15; 
+    timer = start * 60; 
     startCountdown();
 });
 
 shortBreak.addEventListener('click', () => {
-    timer = 5 * 60; 
-    start = 5; 
+    start = 5;
+    timer = start * 60;  
     startCountdown();
 });
 
@@ -60,11 +60,24 @@ function startCountdown() {
     countdownEl.innerHTML = `${minutes}:${seconds}`;
     timer--;
 
+    function shortPause(){
+        start = .1;
+        timer = start * 60;  
+        timerOn = true;
+        startCountdown();
+        if (timer < 0){
+            pomodoroStart();
+        }
+    }
+    function pomodoroStart(){
+        start = .2;
+        timer = start * 60;
+        timerOn = true;
+        startCountdown();
+    }
+
 // Verificação para reiniciar o timer
     if (timer < 0) {
-        clearInterval(countdownInterval);
-        timerOn = false;
-        timer = start * 60; 
-        startButton.innerHTML = 'Start';
-    }
+        shortPause();
+    } 
 }
