@@ -65,5 +65,6 @@ function startCountdown() {
         clearInterval(countdownInterval);
         timerOn = false;
         timer = start * 60; 
+        startButton.innerHTML = 'Start';
     }
 }
