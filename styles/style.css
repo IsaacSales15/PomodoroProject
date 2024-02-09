@@ -1,12 +1,16 @@
+@import url(elements.css);
+
 @font-face {
     font-family: 'Arial Rounded';
     src: url(../fonts/arial-rounded-mt-bold.ttf);
 }
 
 :root {
-    --cor1: #B22222;
-    --cor2: rgba(255, 255, 255, 0.648);
+    --cor1: #b22222de;
+    --cor2: rgba(255, 255, 255, 0.448);
     --cor3: rgba(0, 0, 0, 0.3);
+    --cor4: #b9b8d3bf;
+    --cor5: #3B429F;
 }
 
 * {
@@ -17,15 +21,10 @@
 }
 
 body {
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--cor1);
-}
-
-#wrapper {
     display: grid;
     width: 100vw;
     height: 100vh;
+    background-color: var(--cor1);
 }
 
 #options_container {
@@ -117,4 +116,72 @@ button:active {
 
 button:hover {
     cursor: pointer;
+}
+
+#task_input {
+    width: 70%;
+    justify-self: center;
+    border: none;
+    padding-inline-start: 7px;
+    padding-inline-end: 5px;
+    border-radius: 2px;
+}
+
+#task_input::placeholder {
+    opacity: 0.3;
+}
+
+#add_task_button {
+    display: grid;
+    font-size: 1em;
+    height: 70%;
+    width: 30%;
+    align-self: flex-end;
+    align-content: center;
+    background-color: var(--cor4);
+}
+
+#tasks_container {
+    padding: 10px;
+    border-radius: 6px;
+    background-color: var(--cor4);
+    display: grid;
+    align-self: flex-start;
+    justify-self: center;
+    width: 70vw;
+    height: 20vh;
+    box-shadow: 0px 2px 4px #b9b8d369;
+}
+
+#tasks_panel {
+    display: grid;
+    border: 3px solid blue;
+    width: 70vw;
+    justify-self: center;
+}
+
+.erro::placeholder {
+    color: red;
+    opacity: .3;
+}
+
+.itens {
+    display: grid;
+    background-color: blue;
+    width: 60vw;
+    height: 40px;
+    justify-self: center;
+    align-self: flex-start;
+    margin-top: 5px;
+}
+
+.itens span {
+    display: grid;
+    justify-self: flex-end;
+    align-self: center;
+}
+
+.itens p{
+    justify-self: center;
+    align-self: center;
 }
