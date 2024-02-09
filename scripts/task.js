@@ -1,13 +1,13 @@
-const taskInput = document.querySelector('#task_input');
+const taskTextarea = document.querySelector('#task_textarea');
 const addTaskButton = document.querySelector('#add_task_button');
 const paineltask = document.querySelector('#tasks_panel');
 
-const isTaskValid = () => taskInput.value.trim().length > 0;
+const isTaskValid = () => taskTextarea.value.trim().length > 0;
 
 function addNewTask() {
 
     if (!isTaskValid()){
-        return taskInput.classList.add('erro');  //Reconhecer o erro com CSS
+        return taskTextarea.classList.add('erro');  //Reconhecer o erro com CSS
     }
 
     createNewTask();
@@ -31,15 +31,22 @@ function createNewTask() {
     const taskElement = document.createElement('div');
     taskElement.classList.add('itens');
 
+    const itemContainer = document.createElement('div');
+    itemContainer.classList.add('item_container')
+
     const item = document.createElement('p');
-    item.innerText = taskInput.value;
+    item.classList.add('item_p');
+    itemContainer.appendChild(item);
+
+    item.innerText = taskTextarea.value;
+
     item.addEventListener('click', () => LineThrough(item));
 
 
-    taskElement.appendChild(item);
+    taskElement.appendChild(itemContainer);
     taskElement.appendChild(createTrashBin());
     paineltask.appendChild(taskElement);
-    taskInput.value= '';
+    taskTextarea.value= '';
 }
 
 const LineThrough = (item) => {
