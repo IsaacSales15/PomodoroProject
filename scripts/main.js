@@ -1,4 +1,4 @@
-let start = .2;
+let start = .05;
 let timer = start * 60;
 let timerShort = start * 60
 
@@ -17,7 +17,6 @@ startButton.addEventListener('click', () => {
     // If para verificar se o timerOn está true
     if (!timerOn) {
         timerOn = true;
-        //setTimeout(startCountdown(), 1000);
         countdownInterval = setInterval(startCountdown, 1000);
         startButton.innerHTML = 'Pause';
     } else {
@@ -50,6 +49,7 @@ shortBreak.addEventListener('click', () => {
 function startCountdown() {
     let minutes = Math.floor(timer / 60);
     let seconds = timer % 60;
+
     if (seconds < 10) {
         seconds = '0' + seconds;
     }
@@ -60,24 +60,12 @@ function startCountdown() {
     countdownEl.innerHTML = `${minutes}:${seconds}`;
     timer--;
 
-    function shortPause(){
-        start = .1;
-        timer = start * 60;  
-        timerOn = true;
-        startCountdown();
-        if (timer < 0){
-            pomodoroStart();
-        }
-    }
-    function pomodoroStart(){
-        start = .2;
-        timer = start * 60;
-        timerOn = true;
-        startCountdown();
-    }
-
 // Verificação para reiniciar o timer
+    startRestTimer()
+}
+
+function startRestTimer() {
     if (timer < 0) {
-        shortPause();
-    } 
+        clearInterval(countdownInterval)
+    }
 }
