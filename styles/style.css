@@ -20,16 +20,16 @@
     box-sizing: border-box;
 }
 
-body {
+html, body {
     display: grid;
     width: 100vw;
-    height: 100vh;
     background-color: var(--cor1);
+    overflow-x: hidden;
 }
 
 #options_container {
     display: flex;
-    width: 70vw;
+    width: 500px;
     height: 10vh;
     justify-content: space-around;   
     word-wrap: break-word;
@@ -68,11 +68,12 @@ body {
 }
 
 #timer_container {
+    margin-top: 30px;
     display: grid;
     justify-self: center;
     align-self: center;
     background-color: var(--cor2);
-    width: 70vw;
+    width: 500px;
     height: 50vh;
     border-radius: 10px;
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.222);
@@ -98,6 +99,10 @@ body {
     width: 100%;
 }
 
+#start_button {
+    width: 40%;
+}
+
 button {
     width: 30vw;
     height: 9vh;
@@ -118,16 +123,20 @@ button:hover {
     cursor: pointer;
 }
 
-#task_input {
-    width: 70%;
-    justify-self: center;
+#task_textarea {
+    width: 65%;
+    height: 190%;
+    justify-self: flex-start;
     border: none;
+    box-shadow: .05px .05px .2px 2px rgba(0, 0, 0, 0.195);
     padding-inline-start: 7px;
     padding-inline-end: 5px;
     border-radius: 2px;
+    text-wrap: wrap;
+    resize: none;
 }
 
-#task_input::placeholder {
+#task_textarea::placeholder {
     opacity: 0.3;
 }
 
@@ -136,28 +145,35 @@ button:hover {
     font-size: 1em;
     height: 70%;
     width: 30%;
-    align-self: flex-end;
+    justify-self: flex-end;
+    align-self: center;
     align-content: center;
     background-color: var(--cor4);
 }
 
 #tasks_container {
-    padding: 10px;
-    border-radius: 6px;
-    background-color: var(--cor4);
     display: grid;
     align-self: flex-start;
     justify-self: center;
-    width: 70vw;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: var(--cor4);
+    width: 500px;
     height: 20vh;
+    margin-top: 30px;
     box-shadow: 0px 2px 4px #b9b8d369;
 }
 
 #tasks_panel {
+    background-color: whitesmoke;
     display: grid;
-    border: 3px solid blue;
-    width: 70vw;
     justify-self: center;
+    box-shadow: .3px .5px 2px rgba(0, 0, 0, 0.503);
+    border-radius: 4px;
+    width: 500px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding-bottom: 5px;
 }
 
 .erro::placeholder {
@@ -166,22 +182,46 @@ button:hover {
 }
 
 .itens {
-    display: grid;
-    background-color: blue;
-    width: 60vw;
+    display: flex;
+    background-color: var(--cor4);
+    width: 480px;
     height: 40px;
-    justify-self: center;
-    align-self: flex-start;
     margin-top: 5px;
+    align-items: center;
+    justify-self: center;
+    justify-content: flex-end;
+    border-radius: 3px;
 }
 
-.itens span {
+
+.gg-trash_container {
     display: grid;
-    justify-self: flex-end;
-    align-self: center;
+    background-color: rgba(128, 128, 128, 0.662);
+    height: 40px;
+    width: 60px;
+    border-radius: 0px 3px 3px 0px;
+    justify-self: flex-start;
 }
 
-.itens p{
+.gg-trash {
     justify-self: center;
     align-self: center;
+}
+
+.item_p {
+    margin-left: 10px;
+    justify-self: center;
+    align-self: center;
+}
+
+.item_container {
+    border-radius: 3px;
+    display: flex;
+    height: 30px;
+    margin-left: 4px;
+    width: calc(480px - 60px);
+    margin-right: 10px;
+    align-content: center;
+    justify-content: flex-start;
+    background-color: var(--cor2);
 }

@@ -1,9 +1,5 @@
 /* Trash Bin */
 
-.gg-trash_container {
-    margin: 2px;
-}
-
 .gg-trash {
     box-sizing: border-box;
     position: relative;
