@@ -1,17 +1,42 @@
-let start = .05;
-let timer = start * 60;
-let timerShort = start * 60
+// Variaveis contantes
+const pomodoroStart = .2 * 60; 
+const shortBreakStart = .1 * 60; 
+const longBreakStart = .05 * 60;
+
+// Variaveis let
+let timer = pomodoroStart;
+let currentInterval = "pomodoro"; 
+let timerOn = false;
+let countdownInterval;
 
 // Elementos visuais
 const countdownEl = document.getElementById('minutes');
 const startButton = document.getElementById('start_button');
 const longBreak = document.getElementById('short_pomodoro');
 const shortBreak = document.getElementById('medium_pomodoro');
-const pomodoro = document.getElementById('long_pomodoro')
+const pomodoro = document.getElementById('long_pomodoro');
+const titleEl = document.getElementById('titleTimer');
 
-// Outras variaveis
-let timerOn = false;
-let countdownInterval;
+// Função para iniciar o Count Down
+function startCountdown() {
+    let minutes = Math.floor(timer / 60);
+    let seconds = timer % 60;
+
+    if (seconds < 10) {
+        seconds = '0' + seconds;
+    }
+    if (minutes < 10) {
+        minutes = '0' + minutes;
+    }
+// Escreve os números na tela
+    countdownEl.innerHTML = `${minutes}:${seconds}`;
+    titleEl.innerHTML = `${currentInterval} - ${minutes}:${seconds}`;
+    timer--;
+// If para verificar se o timer é menor que zero
+    if (timer < 0) {
+        startNextInt();
+    }
+}
 
 startButton.addEventListener('click', () => {
     // If para verificar se o timerOn está true
@@ -26,46 +51,55 @@ startButton.addEventListener('click', () => {
     }
 });
 
+// Switch case para o timer reiniciar quando chegar a 0
+function startNextInt(){
+    switch (currentInterval) {
+        case 'pomodoro':
+            currentInterval = 'shortBreak';
+            timer = shortBreakStart;
+            break;
+        case 'shortBreak':
+            currentInterval = 'pomodoro';
+            timer = pomodoroStart;
+            break;
+        case 'longBreak':
+            currentInterval = 'pomodoro';
+            timer = pomodoroStart;
+            break;
+        default:
+            currentInterval = 'pomodoro';
+            timer = pomodoroStart;
+            break;
+    }
+    startCountdown();
+}
+
 // Botões Pomodoro
 pomodoro.addEventListener('click', () => {
-    timer = 25 * 60; 
-    start = 25; 
-    startCountdown();
+    clearInterval(countdownInterval); 
+    timerOn = false;
+    currentInterval = 'pomodoro'; 
+    timer = pomodoroStart;
+    countdownEl.innerHTML = '25:00'; 
+    startButton.innerHTML = 'Start';
 });
 
 longBreak.addEventListener('click', () => {
-    start = 15; 
-    timer = start * 60; 
-    startCountdown();
+    clearInterval(countdownInterval); 
+    timerOn = false;
+    currentInterval = 'longBreak'; 
+    timer = longBreakStart;
+    countdownEl.innerHTML = '15:00'; 
+    startButton.innerHTML = 'Start';
 });
 
 shortBreak.addEventListener('click', () => {
-    start = 5;
-    timer = start * 60;  
-    startCountdown();
+    clearInterval(countdownInterval); 
+    timerOn = false;
+    currentInterval = 'shortBreak';
+    timer = shortBreakStart;  
+    countdownEl.innerHTML = '05:00';
+    startButton.innerHTML = 'Start'; 
 });
 
-// Função para iniciar o Count Down
-function startCountdown() {
-    let minutes = Math.floor(timer / 60);
-    let seconds = timer % 60;
-
-    if (seconds < 10) {
-        seconds = '0' + seconds;
-    }
-    if (minutes < 10) {
-        minutes = '0' + minutes;
-    }
-
-    countdownEl.innerHTML = `${minutes}:${seconds}`;
-    timer--;
-
-// Verificação para reiniciar o timer
-    startRestTimer()
-}
-
-function startRestTimer() {
-    if (timer < 0) {
-        clearInterval(countdownInterval)
-    }
-}
+// Cada vez mais próximo de saber o que só os loucos sabem - By: SALES, Isaac.
