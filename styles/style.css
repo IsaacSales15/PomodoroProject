@@ -23,6 +23,7 @@
 html, body {
     display: grid;
     width: 100vw;
+    min-height: 100vh;
     background-color: var(--cor1);
     overflow-x: hidden;
 }
