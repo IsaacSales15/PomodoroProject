@@ -4,32 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" media="" href="css/style.css">
     <title id="titleTimer">Pomodoro</title>
 </head>
 <body>
-    <div id="timer_container">
-        <div id="options_container">
-            <button id="long_pomodoro" class="option"><span class="options_text" id="long_pomodoro_span">Pomodoro</span></button>
-            <button id="medium_pomodoro" class="option"><span class="options_text">Short break</span></button>
-            <button id="short_pomodoro" class="option"><span class="options_text">Long break</span></button>
-        </div>
-        <div id="main_timer">
-            <div id="timer_upper_container">
+    <div id="pomodoro">
+        <div id="timer_container">
+            <div id="options_container">
+                <button id="long_pomodoro" class="option"><span class="options_text" id="long_pomodoro_span">Pomodoro</span></button>
+                <button id="medium_pomodoro" class="option"><span class="options_text">Short break</span></button>
+                <button id="short_pomodoro" class="option"><span class="options_text">Long break</span></button>
+            </div>
                 <div id="timer">
-                    <span id="minutes">25:00</span>
+                        <span id="minutes">25:00</span>
                 </div>
-            </div>
-            <div id="button_container">
-                <button id="start_button">Start</button>
-            </div>
+                <div id="button_container">
+                    <button id="start_button">Start</button>
+                </div>
         </div>
-    </div>
-        <div id="tasks_container">
-            <textarea name="task_textarea" id="task_textarea"></textarea>
+        <div id="add_task_container">
+            <input type="text" id="task_input" placeholder="What I have to do now?">
             <button id="add_task_button">Add Task</button>
         </div>
-        <div id="tasks_panel"></div>
+    </div>
+    <div id="tasks_panel"></div>
 </body>
 <script src="scripts/timer.js" defer></script>
 <script src="scripts/task.js" defer></script>
