@@ -39,7 +39,6 @@ function createNewTask() {
     taskElement.appendChild(trashBinContainer);
     paineltask.appendChild(taskElement);
     taskInput.value= '';
-    return trashBinContainer;
 };
 
 const DeletItem = (taskElement, item) =>{
@@ -55,7 +54,7 @@ const LineThrough = (item) => {
     const tasks = paineltask.childNodes;
     for(const task of tasks){
         if(task.firstChild === item) {
-            task.firstChild.classList.toggle('riscado');
+            task.firstChild.classList.toggle('line_through');
         }
     }
 };

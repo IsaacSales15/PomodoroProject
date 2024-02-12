@@ -229,6 +229,10 @@ button:hover {
     
 }
 
+.item_p{
+    word-break: break-all;
+}
+
 #options_container {
     display: flex;
     height: 25%;
@@ -337,4 +341,9 @@ button:hover {
 
 .gg-trash:hover {
     cursor: pointer;
+}
+.line_through {
+    text-decoration: line-through;
+    font-style: italic;   
+    opacity: .4;
 }
