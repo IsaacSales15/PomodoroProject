@@ -1,4 +1,4 @@
-// Variaveis contantes
+// Variaveis constantes
 const pomodoroStart = .2 * 60; 
 const shortBreakStart = .1 * 60; 
 const longBreakStart = .05 * 60;
