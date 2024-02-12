@@ -16,16 +16,6 @@ function addNewTask() {
 
 addTaskButton.addEventListener('click', () => addNewTask());
 
-function createTrashBin() {
-    const trashBinContainer = document.createElement('span');
-    trashBinContainer.classList.add('gg-trash_container');
-    const trashBin = document.createElement('span');
-    trashBin.classList.add('gg-trash');
-    trashBin.addEventListener('click', () => DeletItem(trashBin));
-    trashBinContainer.appendChild(trashBin);
-    return trashBinContainer;
-}
-
 function createNewTask() {
 
     const taskElement = document.createElement('div');
@@ -38,26 +28,35 @@ function createNewTask() {
 
     item.addEventListener('click', () => LineThrough(item));
 
+    const trashBinContainer = document.createElement('span');
+    trashBinContainer.classList.add('gg-trash_container');
+    const trashBin = document.createElement('span');
+    trashBin.classList.add('gg-trash');
+    trashBin.addEventListener('click', () => DeletItem(taskElement, item));
+    trashBinContainer.appendChild(trashBin);
 
     taskElement.appendChild(item);
-    taskElement.appendChild(createTrashBin());
+    taskElement.appendChild(trashBinContainer);
     paineltask.appendChild(taskElement);
     taskInput.value= '';
-}
+    return trashBinContainer;
+};
+
+const DeletItem = (taskElement, item) =>{
+    const remove = paineltask.childNodes;
+    for(const task of remove){
+        if(task.firstChild === item){
+            taskElement.remove()
+        }
+    }
+};
 
 const LineThrough = (item) => {
     const tasks = paineltask.childNodes;
     for(const task of tasks){
         if(task.firstChild === item) {
             task.firstChild.classList.toggle('riscado');
-     }
-    }
-}
-
-const DeletItem = (trashBin) => {
-    const del = document.getElementsByClassName('itens');
-    for(const remove of del){
-            remove.remove();    
         }
     }
+};
 
