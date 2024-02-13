@@ -3,8 +3,8 @@
 const pomodoroButton = document.getElementById('pomodoro_button');
 const shortBreakButton = document.getElementById('short_break_button');
 const longBreakButton = document.getElementById('long_break_button');
+const currentMinutes = document.getElementById('minutes').innerText;
 const body = document.querySelector('body');
-
 
 // Gradientes de cores (obrigatoriamente 5 cores) 
 const defaultGradient = ['#b22222', '#913046', '#713f6a', '#504d8d', '#3e55a1'];
@@ -16,12 +16,24 @@ const startTimerButton = document.getElementById('start_button');
 let isPomodoroClicked = true;
 let isShortBreakCliked;
 let isLongBreakCliked;
+let isAnimationRunning;
 
 // As configurações padrões do Pomodoro
-let timeInSeconds;
-let gradient;
-let reverseAnimation;
-let fifthColor;
+let currentTimeInSeconds;
+let currentGradient;
+let currentReverseAnimation;
+let currentFifthColor;
+
+
+function getCurrentStyles(gradient, reverseAnimation, fifthColor) {
+    currentGradient = gradient;
+    currentReverseAnimation = reverseAnimation;
+    currentFifthColor = fifthColor;
+}
+
+function isStylesUndefined() {
+    return [currentTimeInSeconds, currentGradient, currentFifthColor].every(style => style === undefined);
+}
 
 /* Função para mudar a cor do body a partir de uma ação.
 
@@ -29,14 +41,18 @@ timeInSeconds -> definir o tempo da animação em segundo.
 gradient -> array das cores.
 reverseAnimation -> booleano para definir se a animação será inversa ou não, para não mudar o gradiente.
 fifthColor -> definir a última cor da animação, também para não mudar o por completo gradiente. */
-
 function changeBodyBackground(timeInSeconds, gradient, reverseAnimation, fifthColor) {
-    if (timeInSeconds === undefined && gradient === undefined && reverseAnimation === undefined && fifthColor === undefined) {
+    
+    isAnimationRunning = true;
+    
+    getCurrentStyles(gradient, reverseAnimation, fifthColor);
+
+    if (isStylesUndefined()) {
         timeInSeconds = 12;
         gradient = defaultGradient;
         reverseAnimation = false;
     }
-    
+
     let finalBackgroundColor;
     
     // Verifica se a cor final foi definida
@@ -54,7 +70,7 @@ function changeBodyBackground(timeInSeconds, gradient, reverseAnimation, fifthCo
         animationName = 'reverseBackgroudTrasition';
         finalBackgroundColor = gradient[0];
     }
-    
+    // Muda o valor das variáveis do CSS
     document.documentElement.style.setProperty('--first-color', gradient[0]);
     document.documentElement.style.setProperty('--second-color', gradient[1]);
     document.documentElement.style.setProperty('--third-color', gradient[2]);
@@ -67,8 +83,9 @@ function changeBodyBackground(timeInSeconds, gradient, reverseAnimation, fifthCo
 
     // Espera a animação acabar para retirar as propriedades do animation
     setTimeout(() => {
-        document.body.style.animation = '';
-        document.body.style.animationPlayState = '';
+        body.style.animation = '';
+        isAnimationRunning = false;
+        wasTimerStarted = false;
     }, 1000*timeInSeconds);
 }
 
@@ -91,69 +108,68 @@ function getButtonsOrder(elementName) {
             isShortBreakCliked = false;
             isLongBreakCliked = true;
             break;
-        }
-        return [isPomodoroClicked, isShortBreakCliked, isLongBreakCliked];
-        
+        }        
 }
 
 // Transições do background após o clique
 pomodoroButton.addEventListener('click', () => {
 
-    if (isLongBreakCliked && !isPomodoroClicked) {
+    if (isLongBreakCliked && !isPomodoroClicked && !isAnimationRunning) {
         changeBodyBackground(1, pomodoroToLongBreakGradient, true);
-        timeInSeconds = 1;
-        gradient = pomodoroToLongBreakGradient;
-        reverseAnimation = true;
-    } else if (!isPomodoroClicked) {
+        getButtonsOrder(pomodoroButton);
+    } else if (isShortBreakCliked && !isPomodoroClicked && !isAnimationRunning) {
         changeBodyBackground(1, defaultGradient, true);
-        timeInSeconds = 1;
-        gradient = defaultGradient;
-        reverseAnimation = true;
+        getButtonsOrder(pomodoroButton);
     }
 
-    [isPomodoroClicked, isShortBreakCliked, isLongBreakCliked] = getButtonsOrder(pomodoroButton);
 })
 
 shortBreakButton.addEventListener('click', () => {
-    if (isLongBreakCliked && !isShortBreakCliked) {
+    if (isLongBreakCliked && !isShortBreakCliked && !isAnimationRunning) {
         changeBodyBackground(1, shortBreakToLongBreakGradient, true);
-        timeInSeconds = 1;
-        gradient = shortBreakToLongBreakGradient;
-        reverseAnimation = true;
-    } else if (!isShortBreakCliked) {
+        getButtonsOrder(shortBreakButton);
+    } else if (!isShortBreakCliked && !isAnimationRunning) {
         changeBodyBackground(1, defaultGradient, false, '#3e55a1');
-        timeInSeconds = 1;
-        gradient = defaultGradient;
-        reverseAnimation = false;
-        fifthColor = '#3e55a1';
+        getButtonsOrder(shortBreakButton);
     }
-    [isPomodoroClicked, isShortBreakCliked, isLongBreakCliked] = getButtonsOrder(shortBreakButton);
 })
 
 longBreakButton.addEventListener('click', () => {
     
-    if (isShortBreakCliked && !isLongBreakCliked) {
-        changeBodyBackground(1, shortBreakToLongBreakGradient, false)
-        timeInSeconds = 1;
-        gradient = shortBreakToLongBreakGradient;
-        reverseAnimation = false;
+    if (isShortBreakCliked && !isLongBreakCliked && !isAnimationRunning) {
+        changeBodyBackground(1, shortBreakToLongBreakGradient, false);
+        getButtonsOrder(longBreakButton);
         
-    } else if (isPomodoroClicked && !isLongBreakCliked) {
+    } else if (isPomodoroClicked && !isLongBreakCliked && !isAnimationRunning) {
         changeBodyBackground(1, pomodoroToLongBreakGradient, false);
-        timeInSeconds = 1;
-        gradient = pomodoroToLongBreakGradient;
-        reverseAnimation = false;
+        getButtonsOrder(longBreakButton);
     } 
 
-    [isPomodoroClicked, isShortBreakCliked, isLongBreakCliked] = getButtonsOrder(longBreakButton);
 })
 
 // Animação do background acompanhada com o timer 
 
-let startButtonContent = startTimerButton.innerHTML;
+let startButtonisStart = true;
+let wasTimerStarted = false;
 
-let isTimerRunning = false;
-
+// O start é apertado pela primeira vez, o timer é pausado, o timer é despausado, o timer encerrado 
 startTimerButton.addEventListener('click', () => {
-    changeBodyBackground(timeInSeconds, gradient, !reverseAnimation, fifthColor);
+
+    // Verifica se o timer ja está rodando e se ele vai pausar ou continuar
+    if (wasTimerStarted && startButtonisStart) {
+        body.style.animationPlayState = 'paused';
+        startButtonisStart = !startButtonisStart;
+    } else if (wasTimerStarted && !startButtonisStart) {
+        body.style.animationPlayState = 'running';
+        startButtonisStart = !startButtonisStart;
+    } else if (!wasTimerStarted && isPomodoroClicked && !isAnimationRunning) {
+        changeBodyBackground(5, currentGradient, !currentReverseAnimation, currentFifthColor);
+        wasTimerStarted = true;
+    } else if (!wasTimerStarted && isShortBreakCliked && !isAnimationRunning) {
+        changeBodyBackground(6, currentGradient, !currentReverseAnimation, currentFifthColor);
+        wasTimerStarted = true;
+    } else if (!wasTimerStarted && isLongBreakCliked && !isAnimationRunning) {
+        changeBodyBackground(7, currentGradient, !currentReverseAnimation, currentFifthColor);
+        wasTimerStarted = true;
+    }
 })
