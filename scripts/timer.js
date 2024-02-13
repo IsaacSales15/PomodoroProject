@@ -8,6 +8,7 @@ let timer = pomodoroStart;
 let currentInterval = "pomodoro"; 
 let timerOn = false;
 let countdownInterval;
+let audioStart = document.getElementById('alarm_audio')
 
 // Elementos visuais
 const countdownEl = document.getElementById('minutes');
@@ -71,6 +72,10 @@ function startNextInt(){
             timer = pomodoroStart;
             break;
     }
+    clearInterval(countdownInterval);
+    audioStart.play();
+    timerOn = false;
+    startButton.innerHTML = 'Start'; 
     startCountdown();
 }
 
