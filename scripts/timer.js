@@ -12,9 +12,9 @@ let countdownInterval;
 // Elementos visuais
 const countdownEl = document.getElementById('minutes');
 const startButton = document.getElementById('start_button');
-const longBreak = document.getElementById('short_pomodoro');
-const shortBreak = document.getElementById('medium_pomodoro');
-const pomodoro = document.getElementById('long_pomodoro');
+const longBreak = document.getElementById('long_break_button');
+const shortBreak = document.getElementById('short_break_button');
+const pomodoro = document.getElementById('pomodoro_button');
 const titleEl = document.getElementById('titleTimer');
 
 // Função para iniciar o Count Down
