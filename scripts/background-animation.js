@@ -1,8 +1,8 @@
 // Transição do background ao clicar no Pomodoro, Short Break e Long Break
 
-const pomodoroButton = document.getElementById('pomodoro_button');
-const shortBreakButton = document.getElementById('short_break_button');
-const longBreakButton = document.getElementById('long_break_button');
+const pomodoro = document.getElementById('pomodoro_button');
+const shortBreak = document.getElementById('short_break_button');
+const longBreak = document.getElementById('long_break_button');
 const currentMinutes = document.getElementById('minutes').innerText;
 const body = document.querySelector('body');
 
@@ -67,17 +67,17 @@ function changeBodyBackground(timeInSeconds, gradient, reverseAnimation, fifthCo
 function getButtonsOrder(elementName) {
     
     switch (elementName) {
-        case pomodoroButton :
+        case pomodoro :
             isPomodoroClicked = true;
             isShortBreakCliked = false;
             isLongBreakCliked = false;
             break;
-        case shortBreakButton :
+        case shortBreak :
             isPomodoroClicked = false;
             isShortBreakCliked = true;
             isLongBreakCliked = false;
             break;
-        case longBreakButton :
+        case longBreak :
             isPomodoroClicked = false;
             isShortBreakCliked = false;
             isLongBreakCliked = true;
@@ -86,37 +86,37 @@ function getButtonsOrder(elementName) {
 }
 
 // Transições do background após o clique
-pomodoroButton.addEventListener('click', () => {
+pomodoro.addEventListener('click', () => {
 
     if (isLongBreakCliked && !isPomodoroClicked && !isAnimationRunning) {
         changeBodyBackground(1, pomodoroToLongBreakGradient, true);
-        getButtonsOrder(pomodoroButton);
+        getButtonsOrder(pomodoro);
     } else if (isShortBreakCliked && !isPomodoroClicked && !isAnimationRunning) {
         changeBodyBackground(1, defaultGradient, true);
-        getButtonsOrder(pomodoroButton);
+        getButtonsOrder(pomodoro);
     }
 
 })
 
-shortBreakButton.addEventListener('click', () => {
+shortBreak.addEventListener('click', () => {
     if (isLongBreakCliked && !isShortBreakCliked && !isAnimationRunning) {
         changeBodyBackground(1, shortBreakToLongBreakGradient, true);
-        getButtonsOrder(shortBreakButton);
+        getButtonsOrder(shortBreak);
     } else if (!isShortBreakCliked && !isAnimationRunning) {
         changeBodyBackground(1, defaultGradient, false, '#3e55a1');
-        getButtonsOrder(shortBreakButton);
+        getButtonsOrder(shortBreak);
     }
 })
 
-longBreakButton.addEventListener('click', () => {
+longBreak.addEventListener('click', () => {
     
     if (isShortBreakCliked && !isLongBreakCliked && !isAnimationRunning) {
         changeBodyBackground(1, shortBreakToLongBreakGradient, false);
-        getButtonsOrder(longBreakButton);
+        getButtonsOrder(longBreak);
         
     } else if (isPomodoroClicked && !isLongBreakCliked && !isAnimationRunning) {
         changeBodyBackground(1, pomodoroToLongBreakGradient, false);
-        getButtonsOrder(longBreakButton);
+        getButtonsOrder(longBreak);
     } 
 
 })
