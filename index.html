@@ -5,13 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" media="" href="css/style.css">
+    <link rel="shortcut icon" href="favicon/red-tomato.png" type="image/x-icon">
     <title id="titleTimer">Pomodoro</title>
 </head>
 <body>
     <div id="pomodoro">
         <div id="timer_container">
             <div id="options_container">
-                <button id="pomodoro_button" class="option"><span class="options_text" id="pomodoro_button_span">Pomodoro</span></button>
+                <button id="pomodoro_button" class="option button_actived"><span class="options_text" id="pomodoro_button_span">Pomodoro</span></button>
                 <button id="short_break_button" class="option"><span class="options_text">Short break</span></button>
                 <button id="long_break_button" class="option"><span class="options_text">Long break</span></button>
             </div>
@@ -19,7 +20,7 @@
                         <span id="minutes">25:00</span>
                 </div>
                 <div id="button_container">
-                    <button id="start_button" class="button_actived">Start</button>
+                    <button id="start_button">Start</button>
                 </div>
         </div>
         <div id="add_task_container">
@@ -29,8 +30,8 @@
     </div>
     <div id="tasks_panel"></div>
 </body>
-    <script src="scripts/background-animation.js" defer></script>
     <script src="scripts/timer.js" defer></script>
+    <script src="scripts/background-animation.js" defer></script>
     <script src="scripts/task.js" defer></script>
 
     <audio id="alarm_audio" src="audios/AlarmBipTimer.mpeg"></audio>

@@ -56,14 +56,20 @@ startButton.addEventListener('click', () => {
 function startNextInt(){
     switch (currentInterval) {
         case 'pomodoro':
+            pomodoroButton.classList.remove('button_actived');
+            shortBreakButton.classList.add('button_actived');
             currentInterval = 'shortBreak';
             timer = shortBreakStart;
             break;
         case 'shortBreak':
+            pomodoroButton.classList.add('button_actived');
+            shortBreakButton.classList.remove('button_actived');
             currentInterval = 'pomodoro';
             timer = pomodoroStart;
             break;
         case 'longBreak':
+            pomodoroButton.classList.add('button_actived');
+            longBreakButton.classList.remove('button_actived');
             currentInterval = 'pomodoro';
             timer = pomodoroStart;
             break;
@@ -87,6 +93,7 @@ pomodoro.addEventListener('click', () => {
     timer = pomodoroStart;
     countdownEl.innerHTML = '25:00'; 
     startButton.innerHTML = 'Start';
+    changeButtonClass()
 });
 
 longBreak.addEventListener('click', () => {
@@ -96,6 +103,7 @@ longBreak.addEventListener('click', () => {
     timer = longBreakStart;
     countdownEl.innerHTML = '15:00'; 
     startButton.innerHTML = 'Start';
+    changeButtonClass()
 });
 
 shortBreak.addEventListener('click', () => {
@@ -105,6 +113,27 @@ shortBreak.addEventListener('click', () => {
     timer = shortBreakStart;  
     countdownEl.innerHTML = '05:00';
     startButton.innerHTML = 'Start'; 
+    changeButtonClass()
 });
 
 // Cada vez mais próximo de saber o que só os loucos sabem - By: SALES, Isaac.
+
+function changeButtonClass() {
+    switch (currentInterval) {
+        case 'pomodoro' : 
+            pomodoroButton.classList.add('button_actived');
+            shortBreakButton.classList.remove('button_actived');
+            longBreakButton.classList.remove('button_actived');
+            break;
+        case 'shortBreak' :
+            pomodoroButton.classList.remove('button_actived');
+            shortBreakButton.classList.add('button_actived');
+            longBreakButton.classList.remove('button_actived');
+            break;
+        case 'longBreak' :
+            pomodoroButton.classList.remove('button_actived');
+            shortBreakButton.classList.remove('button_actived');
+            longBreakButton.classList.add('button_actived');
+            break;
+    }
+}

@@ -82,11 +82,16 @@ function changeBodyBackground(timeInSeconds, gradient, reverseAnimation, fifthCo
     document.body.style.backgroundColor = finalBackgroundColor;
 
     // Espera a animação acabar para retirar as propriedades do animation
-    setTimeout(() => {
+    if (wasTimerStarted || currentMinutes == '00:00') {
         body.style.animation = '';
         isAnimationRunning = false;
         wasTimerStarted = false;
-    }, 1000*timeInSeconds);
+    } else if (!wasTimerStarted) {
+        setTimeout(() => {
+        body.style.animation = '';
+        isAnimationRunning = false; },
+        1000*timeInSeconds);
+    }
 }
 
 // Retorna um array com três booleanos, onde o true corresponde a posição do botão que foi clicado.
@@ -98,13 +103,13 @@ function getButtonsOrder(elementName) {
             isShortBreakCliked = false;
             isLongBreakCliked = false;
             break;
-            case shortBreakButton :
-                isPomodoroClicked = false;
+        case shortBreakButton :
+            isPomodoroClicked = false;
             isShortBreakCliked = true;
             isLongBreakCliked = false;
             break;
-            case longBreakButton :
-                isPomodoroClicked = false;
+        case longBreakButton :
+            isPomodoroClicked = false;
             isShortBreakCliked = false;
             isLongBreakCliked = true;
             break;
@@ -154,7 +159,6 @@ let wasTimerStarted = false;
 
 // O start é apertado pela primeira vez, o timer é pausado, o timer é despausado, o timer encerrado 
 startTimerButton.addEventListener('click', () => {
-
     // Verifica se o timer ja está rodando e se ele vai pausar ou continuar
     if (wasTimerStarted && startButtonisStart) {
         body.style.animationPlayState = 'paused';
@@ -163,13 +167,30 @@ startTimerButton.addEventListener('click', () => {
         body.style.animationPlayState = 'running';
         startButtonisStart = !startButtonisStart;
     } else if (!wasTimerStarted && isPomodoroClicked && !isAnimationRunning) {
-        changeBodyBackground(5, currentGradient, !currentReverseAnimation, currentFifthColor);
+        changeBodyBackground(12, currentGradient, !currentReverseAnimation, currentFifthColor);
         wasTimerStarted = true;
     } else if (!wasTimerStarted && isShortBreakCliked && !isAnimationRunning) {
-        changeBodyBackground(6, currentGradient, !currentReverseAnimation, currentFifthColor);
+        changeBodyBackground(6, defaultGradient, !currentReverseAnimation, currentFifthColor);
         wasTimerStarted = true;
     } else if (!wasTimerStarted && isLongBreakCliked && !isAnimationRunning) {
-        changeBodyBackground(7, currentGradient, !currentReverseAnimation, currentFifthColor);
+        changeBodyBackground(3, pomodoroToLongBreakGradient, !currentReverseAnimation, currentFifthColor);
         wasTimerStarted = true;
     }
+    changeCurrentOrder()
 })
+
+setInterval( () =>console.log(isPomodoroClicked, isShortBreakCliked, isLongBreakCliked), 1000)
+    
+function changeCurrentOrder() {
+    switch (currentInterval) {
+        case 'pomodoro':
+            getButtonsOrder(pomodoroButton);
+            break;
+        case 'shortBreak':
+            getButtonsOrder(shortBreakButton);
+            break;
+        case 'longBreal':
+            getButtonsOrder(longBreakButton);
+            break;
+    }
+}
