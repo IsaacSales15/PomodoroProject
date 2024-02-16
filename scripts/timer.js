@@ -56,6 +56,7 @@ startButton.addEventListener('click', () => {
 function startNextInt(){
     switch (currentInterval) {
         case 'pomodoro':
+            document.querySelector("link[rel*='icon']").href = 'favicon/blue-tomato.png';
             pomodoro.classList.remove('button_actived');
             shortBreak.classList.add('button_actived');
             shortBreakEvent();
@@ -63,6 +64,7 @@ function startNextInt(){
             timer = shortBreakStart;
             break;
         case 'shortBreak':
+            document.querySelector("link[rel*='icon']").href = 'favicon/red-tomato.png';
             pomodoro.classList.add('button_actived');
             shortBreak.classList.remove('button_actived');
             pomodoroEvent();
@@ -70,6 +72,7 @@ function startNextInt(){
             timer = pomodoroStart;
             break;
         case 'longBreak':
+            document.querySelector("link[rel*='icon']").href = 'favicon/red-tomato.png';
             pomodoro.classList.add('button_actived');
             longBreak.classList.remove('button_actived');
             currentInterval = 'pomodoro';
@@ -123,16 +126,19 @@ shortBreak.addEventListener('click', () => {
 function changeButtonClass() {
     switch (currentInterval) {
         case 'pomodoro' : 
+            document.querySelector("link[rel*='icon']").href = 'favicon/red-tomato.png'
             pomodoro.classList.add('button_actived');
             shortBreak.classList.remove('button_actived');
             longBreak.classList.remove('button_actived');
             break;
         case 'shortBreak' :
+            document.querySelector("link[rel*='icon']").href = 'favicon/blue-tomato.png'
             pomodoro.classList.remove('button_actived');
             shortBreak.classList.add('button_actived');
             longBreak.classList.remove('button_actived');
             break;
         case 'longBreak' :
+            document.querySelector("link[rel*='icon']").href = 'favicon/blue-tomato.png'
             pomodoro.classList.remove('button_actived');
             shortBreak.classList.remove('button_actived');
             longBreak.classList.add('button_actived');
